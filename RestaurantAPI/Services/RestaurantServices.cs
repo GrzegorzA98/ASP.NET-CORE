@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RestaurantAPI.Entities;
+using RestaurantAPI.Exceptions;
 using RestaurantAPI.Models;
 
 namespace RestaurantAPI.Services {
@@ -9,21 +10,22 @@ namespace RestaurantAPI.Services {
 
         private readonly RestaurantDbContext restaurantDbContext;
         private readonly IMapper _mapper;
+        private readonly ILogger<RestaurantServices> _logger;
 
-        public RestaurantServices(RestaurantDbContext dbContext, IMapper mapper) {
+        public RestaurantServices(RestaurantDbContext dbContext, IMapper mapper, ILogger<RestaurantServices> logger) {
 
             restaurantDbContext = dbContext;
             _mapper = mapper;
-
+            _logger = logger;
         }
 
-        public bool Update(int id, UpdateRestaurantDto dto) {
+        public void Update(int id, UpdateRestaurantDto dto) {
 
             var restaurant = restaurantDbContext.Restaurants.FirstOrDefault(r => r.Id == id);
 
             if (restaurant is null) {
 
-                return false;
+                throw new NotFoundException("Restaurant not found");
 
             }
 
@@ -32,25 +34,23 @@ namespace RestaurantAPI.Services {
             restaurant.HasDelivery = dto.HasDelivery;
 
             restaurantDbContext.SaveChanges();
-
-            return true;
         
         }
 
-        public bool Delete(int id) {
+        public void Delete(int id) {
+
+            _logger.LogError($"Restaurant with id: {id} DELETE action invoked");
 
             var restaurant = restaurantDbContext.Restaurants.FirstOrDefault(r => r.Id == id);
 
             if (restaurant is null) {
 
-                return false;
+                throw new NotFoundException("Restaurant not found");
 
             }
 
             restaurantDbContext.Restaurants.Remove(restaurant);
             restaurantDbContext.SaveChanges();
-
-            return true;
 
         }
 
@@ -60,7 +60,7 @@ namespace RestaurantAPI.Services {
 
             if (restaurant is null) {
 
-                return null;
+                throw new NotFoundException("Restaurant not found");
 
             }
 
