@@ -1,14 +1,10 @@
-﻿namespace RestaurantAPI.Entities {
+﻿using System.ComponentModel.DataAnnotations;
 
-    public class Dish {
+namespace RestaurantAPI.Models {
 
-        public int Id {
+    public class CreateDishDto {
 
-            get;
-            set;
-
-        }
-
+        [Required]
         public string Name {
 
             get;
@@ -37,13 +33,6 @@
 
         }
 
-        public virtual Restaurant Restaurant {
-
-            get;
-            set;
-        
-        }
 
     }
-
 }
