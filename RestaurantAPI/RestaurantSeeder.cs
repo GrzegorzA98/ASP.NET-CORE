@@ -24,6 +24,14 @@ namespace RestaurantAPI {
 
                 }
 
+                if (!_context.Roles.Any()) {
+
+                    var roles = GetRoles();
+                    _context.Roles.AddRange(roles);
+                    _context.SaveChanges();
+
+                }
+
             }
         
         }
@@ -79,6 +87,34 @@ namespace RestaurantAPI {
             };
 
             return restaurants;
+
+        }
+
+        private IEnumerable<Role> GetRoles() {
+
+            var roles = new List<Role>() {
+
+                new Role() {
+
+                    Name = "User"
+
+                },
+
+                new Role() {
+
+                    Name = "Manager"
+
+                },
+
+                new Role() {
+
+                    Name = "Admin"
+
+                },
+
+            };
+
+            return roles;
 
         }
 
