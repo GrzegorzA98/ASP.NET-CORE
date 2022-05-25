@@ -34,6 +34,12 @@ namespace RestaurantAPI.Middleware {
 
             }
 
+            catch (ForbidException forbidException) {
+
+                context.Response.StatusCode = 403;
+
+            }
+
             catch (Exception ex) {
 
                 logger.LogError(ex, ex.Message);

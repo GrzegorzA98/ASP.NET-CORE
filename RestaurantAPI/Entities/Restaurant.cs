@@ -51,6 +51,20 @@
 
         }
 
+        public int? CreatedById {
+
+            get;
+            set;
+            
+        }
+
+        public virtual User CreatedBy {
+
+            get;
+            set;
+
+        }
+
         public int AddressId {
 
             get;
