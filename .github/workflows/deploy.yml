@@ -45,7 +45,7 @@ jobs:
         uses: actions/download-artifact@v3.0.0
         with:
           name: api-artifact
-      - name: Azure WebApp
+      - name: Azure WebApp deploy
         id: deploy-to-azure
         uses: Azure/webapps-deploy@v2
         with:
