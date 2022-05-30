@@ -13,7 +13,7 @@ using RestaurantAPI.Models.Validators;
 using RestaurantAPI.Services;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args)
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
