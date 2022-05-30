@@ -9,9 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core SDK
-        uses: actions/setup-dotnet@v1.9.0 
+        uses: actions/setup-dotnet@v2.1.0 
         with:
-          dotnet-version: 5.0.x
+          dotnet-version: 6.0.x
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
@@ -19,7 +19,7 @@ jobs:
       - name: Publish
         run: dotnet publish ./RestaurantAPI/RestaurantAPI.csproj  -c Release -o ${{ env.DOTNET_ROOT }}/api
       - name: upload artifact
-        uses: actions/upload-artifact@v2.2.4
+        uses: actions/upload-artifact@v3.1.0
         with: 
          name: api-artifact
          path: ${{ env.DOTNET_ROOT }}/api
@@ -33,7 +33,7 @@ jobs:
       url: ${{ steps.deploy-to-azure.outputs.webapp-url }}
     steps:
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.0.10
+        uses: actions/download-artifact@v3.0.0
         with:
           name: api-artifact
       - name: Azure WebApp deploy
